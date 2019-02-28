@@ -20,6 +20,20 @@ class ViewController: UIViewController {
         
         //What should happen when a non-number button is pressed
         isFinishedTyping = true
+        
+        guard let number = Double(displayLabel.text!) else {
+            fatalError("Cannot convert number to Double")
+        }
+        
+        if let calcMethod = sender.currentTitle {
+            if calcMethod == "+/-" {
+                displayLabel.text = String(number * -1)
+            } else if calcMethod == "AC" {
+                displayLabel.text = String(0)
+            } else if calcMethod == "%" {
+                displayLabel.text = String (number / 100)
+            }
+        }
     
     }
 
@@ -32,7 +46,16 @@ class ViewController: UIViewController {
                 displayLabel.text = String(numValue)
                 isFinishedTyping = false
             } else {
-                displayLabel.text = "\(currText)\(numValue)"
+                if numValue == "." {
+                    guard let currNumber = Double(displayLabel.text!) else {
+                        fatalError("Cannot convert input to double")
+                    }
+                    if currNumber == floor(currNumber) {
+                        displayLabel.text = "\(currText)\(numValue)"
+                    }
+                } else {
+                    displayLabel.text = "\(currText)\(numValue)"
+                }
             }
         }
     
