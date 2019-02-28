@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         }
     }
     
+    private let calculatorLogic: CalculatorLogic = CalculatorLogic()
+    
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
@@ -32,12 +34,8 @@ class ViewController: UIViewController {
         isFinishedTyping = true
         
         if let calcMethod = sender.currentTitle {
-            if calcMethod == "+/-" {
-                displayValue = displayValue * -1
-            } else if calcMethod == "AC" {
-                displayValue = 0
-            } else if calcMethod == "%" {
-                displayValue = displayValue / 100
+            if let returnedResult = calculatorLogic.performCalculation(forMethodSymbol: calcMethod, onValue: displayValue) {
+                displayValue = returnedResult
             }
         }
     
