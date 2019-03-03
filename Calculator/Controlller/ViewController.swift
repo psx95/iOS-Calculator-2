@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private let calculatorLogic: CalculatorLogic = CalculatorLogic()
+    private var calculatorLogic: CalculatorLogic = CalculatorLogic()
     
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {

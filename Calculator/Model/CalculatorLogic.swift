@@ -8,17 +8,40 @@
 
 import Foundation
 
-class CalculatorLogic {
+struct CalculatorLogic {
     
-    func performCalculation(forMethodSymbol methodSymbol: String, onValue value: Double) -> Double? {
+    var intermediateCalculation: (number: Double, method: String)?
+    
+    mutating func performCalculation(forMethodSymbol methodSymbol: String, onValue value: Double) -> Double? {
         var calculationResult: Double? = nil
         if methodSymbol == "+/-" {
             calculationResult = value * -1
         } else if methodSymbol == "AC" {
             calculationResult = 0
+            intermediateCalculation = nil
         } else if methodSymbol == "%" {
             calculationResult = value / 100
+        } else if methodSymbol == "=" {
+            if let currentCalc = intermediateCalculation {
+                calculationResult = computeResultFromTwoNumbers(number1: currentCalc.number, number2: value, method: currentCalc.method)
+            }
+        } else {
+            intermediateCalculation = (value, methodSymbol)
         }
         return calculationResult
+    }
+    
+    private func computeResultFromTwoNumbers (number1: Double, number2: Double, method: String) -> Double {
+        if method == "+" {
+            return number1 + number2
+        } else if method == "-" {
+            return number1 - number2
+        } else if method == "÷" {
+            return number1 / number2
+        } else if method == "×" {
+            return number1 * number2
+        } else {
+            return number1
+        }
     }
 }
