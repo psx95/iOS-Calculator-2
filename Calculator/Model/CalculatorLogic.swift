@@ -32,16 +32,17 @@ struct CalculatorLogic {
     }
     
     private func computeResultFromTwoNumbers (number1: Double, number2: Double, method: String) -> Double {
-        if method == "+" {
+        switch method {
+        case "+":
             return number1 + number2
-        } else if method == "-" {
+        case "-":
             return number1 - number2
-        } else if method == "÷" {
+        case "÷":
             return number1 / number2
-        } else if method == "×" {
+        case "×":
             return number1 * number2
-        } else {
-            return number1
+        default:
+            fatalError("operation passed does not match any cases")
         }
     }
 }
